@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphic View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 12px 8px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .tradingview-widget-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #2d2d2d;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .tv-symbol-info {
+            text-align: center;
+            margin: 10px;
+            font-size: 14px;
+        }
+
+        .tv-symbol-info a {
+            color: #4d94ff;
+            text-decoration: none;
+        }
+
+        .nelsen {
+            color: #3fa !important;
+        }
+
+        .nelsen1 {
+            color: magenta !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="tradingview-widget-container">
+        <h1> <i class="nelsen">Gra</i><i class="nelsen1">Vi</i> (XAU/USD)</h1>
+        <div id="tradingview_1"></div>
+        <script defer src="https://s3.tradingview.com/tv.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                new TradingView.widget(
+                    {
+                        "width": "100%",
+                        "height": 590,
+                        "symbol": "FX_IDC:XAUUSD",
+                        "interval": "1",
+                        "timezone": "Etc/UTC",
+                        "theme": "dark",
+                        "style": "1",
+                        "locale": "en",
+                        "toolbar_bg": "#2d2d2d",
+                        "enable_publishing": false,
+                        "allow_symbol_change": true,
+                        "container_id": "tradingview_1",
+                        "withdateranges": true,
+                        "datafeed": {
+                            "priceonly": true
+                        },
+                        "market_data": [{
+                            "symbol": "XAUUSD",
+                            "description": "Gold Spot"
+                        }]
+                    }
+                );
+            });
+        </script>
+        <div class="tv-symbol-info">
+            &copy; <script>document.write(new Date().getFullYear())</script>
+            <a href="https://github.com/nelsenpro" target="_blank" class="nelsen">Nelsen Niko</a> | Provided by <a href="https://www.tradingview.com/" target="_blank">TradingView</a>
+        </div>
+    </div>
+</body>
+</html>
