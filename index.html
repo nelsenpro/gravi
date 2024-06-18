@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graphic View</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #1a1a1a;
             color: #fff;
-            margin: 12px 8px 0;
+            margin: 0;
+            padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            min-height: 100vh;
         }
 
         .tradingview-widget-container {
@@ -23,31 +24,47 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             border-radius: 8px;
             overflow: hidden;
+            margin: auto;
+            margin-top: 8px;
         }
-
         h1 {
             font-size: 24px;
             text-align: center;
             margin: 10px;
         }
-
         .tv-symbol-info {
             text-align: center;
             margin: 10px;
             font-size: 14px;
         }
-
         .tv-symbol-info a {
             color: #4d94ff;
             text-decoration: none;
         }
-
         .nelsen {
             color: #3fa !important;
         }
-
         .nelsen1 {
             color: magenta !important;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
         }
     </style>
 </head>
@@ -57,37 +74,128 @@
         <div id="tradingview_1"></div>
         <script defer src="https://s3.tradingview.com/tv.js"></script>
         <script>
+            function loadWidget() {
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": 580,
+                    "symbol": "FX_IDC:XAUUSD",
+                    "interval": "1",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#2d2d2d",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "tradingview_1",
+                    "withdateranges": true,
+                    "datafeed": {
+                        "priceonly": true
+                    },
+                    "market_data": [{
+                        "symbol": "XAUUSD",
+                        "description": "Gold Spot"
+                    }]
+                });
+            }
+
             document.addEventListener('DOMContentLoaded', function() {
-                new TradingView.widget(
-                    {
-                        "width": "100%",
-                        "height": 590,
-                        "symbol": "FX_IDC:XAUUSD",
-                        "interval": "1",
-                        "timezone": "Etc/UTC",
-                        "theme": "dark",
-                        "style": "1",
-                        "locale": "en",
-                        "toolbar_bg": "#2d2d2d",
-                        "enable_publishing": false,
-                        "allow_symbol_change": true,
-                        "container_id": "tradingview_1",
-                        "withdateranges": true,
-                        "datafeed": {
-                            "priceonly": true
-                        },
-                        "market_data": [{
-                            "symbol": "XAUUSD",
-                            "description": "Gold Spot"
-                        }]
-                    }
-                );
+                if (!navigator.onLine) {
+                    Swal.fire({
+                        title: 'Tidak ada koneksi internet',
+                        text: 'Harap periksa koneksi internet Anda dan coba lagi.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    loadWidget();
+                }
+
+                window.addEventListener('offline', function() {
+                    Swal.fire({
+                        title: 'Koneksi terputus',
+                        text: 'Anda kehilangan koneksi internet.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                });
+
+                window.addEventListener('online', function() {
+                    Swal.fire({
+                        title: 'Koneksi tersambung',
+                        text: 'Koneksi internet Anda telah pulih.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                    loadWidget();
+                });
             });
         </script>
         <div class="tv-symbol-info">
-            &copy; <script>document.write(new Date().getFullYear())</script>
+            &copy; <script>
+                document.write(new Date().getFullYear())
+            </script>
             <a href="https://github.com/nelsenpro" target="_blank" class="nelsen">Nelsen Niko</a> | Provided by <a href="https://www.tradingview.com/" target="_blank">TradingView</a>
         </div>
     </div>
+    <div class="navbar">
+        <a href="#github" id="github">Beranda</a>
+        <a href="#berita" id="berita">Berita</a>
+        <a href="#tentang" id="tentang">Tentang</a>
+        <a href="#kontak" id="kontak">Kontak</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Selamat Datang!',
+                text: 'Analisis Saham, Cripto, Emas, Mata, Uang Bond, Ekonomi dll',
+                icon: 'info',
+                confirmButtonText: 'OK'
+            });
+
+            document.getElementById('github').addEventListener('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Github',
+                    html: 'Kunjungi <a href="https://github.com/nelsenpro/gravi.io" target="_blank">Github</a>',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            });
+
+            document.getElementById('berita').addEventListener('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Berita',
+                    text: 'Belum ada Berita',
+                    iconHtml: '📰',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            });
+
+            document.getElementById('tentang').addEventListener('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Tentang',
+                    text: 'Gravi - Graphic View',
+                    iconHtml: 'ℹ️',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            });
+
+            document.getElementById('kontak').addEventListener('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Kontak',
+                    text: '+6285328736706',
+                    iconHtml: '☎️',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
