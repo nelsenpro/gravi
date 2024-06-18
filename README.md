@@ -2,7 +2,7 @@
 **Gravi (Graphic View) atau Graphic View Analytics** adalah platform analisis keuangan tercanggih yang menyediakan wawasan mendalam terhadap berbagai instrumen keuangan.
 
 ## Demo
-[Coba Gravi Sekarang](https://nelsenpro.github.io/gravi.io/)
+[Coba Gravi Sekarang](https://nelsenpro.github.io/gravia/)
 
 ## Fitur Utama
 
